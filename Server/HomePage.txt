@@ -1,0 +1,121 @@
+<html><head>
+</head><body>
+
+
+
+
+<form action="/UpdateThreshold" id="Threshold" >
+	<p>UpperThreshold: <input type="text" name="UpperThreshold" /></p>
+	<p>LowerThreshold: <input type="text" name="LowerThreshold" /></p>
+<input type="button" value="Submit" onclick="ThresholdSubmission()" />
+</form>
+
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+function ThresholdSubmission() 
+	{
+ 		$.ajax({
+			type: "POST",
+			url:"UpdateThreshold",
+			data:$("#Threshold").serialize(),            
+			error: function() {
+				alert("Connection error");
+					},
+			success: function() {
+			}
+		});
+	};
+</script>
+
+
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() 
+	{
+		$('#TxtAutoManual').empty();
+		$('#TxtRelayState').empty();
+		$.ajax({ 
+			url: '/Refresh',
+			cache:false, 
+			type: 'GET',
+			success: function(Data) {
+				$('#TxtAutoManual').val(Data.AutoManualState); 
+				$('#TxtRelayState').val(Data.RelayState);
+			}
+		});
+	}
+	);
+</script>
+
+
+
+
+
+<button id ='Refresh'>Refresh</button>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() { $('#Refresh').click(
+function(){
+$('#TxtAutoManual').empty();
+$('#TxtRelayState').empty();
+$.ajax({ url: '/Refresh',
+ cache:false, type: 'GET',
+ success: function(Data) {
+ $('#TxtAutoManual').val(Data.AutoManualState); 
+ $('#TxtRelayState').val(Data.RelayState);}
+});
+})
+});
+</script>
+
+
+
+<br><br>
+<button id='BtnAutoManual'>Auto/Manual</button>
+<input id='TxtAutoManual'></text>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() { $('#BtnAutoManual').click(
+function(){
+$('#TxtAutoManual').empty()
+$.ajax({ url: '/AutoManual',
+ cache:false, type: 'GET',
+ success: function(Data) {
+ $('#TxtAutoManual').val(Data.AutoManualState);}
+});
+})
+});
+</script>
+
+
+
+
+<br><br>
+<button id='BtnRunStop'>Run/Stop</button>
+<input id='TxtRelayState'></text>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() { $('#BtnRunStop').click(
+function(){
+$('#TxtRelayState').empty()
+$.ajax({ url: '/RunStop',
+ cache:false, type: 'GET',
+ success: function(Data) {
+ $('#TxtRelayState').val(Data.RelayState);}
+});
+})
+});
+</script>
+
+
+
+
+</body>
+</html>
